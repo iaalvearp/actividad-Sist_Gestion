@@ -2,20 +2,36 @@
   color-scheme: light;
 
   /* Tres valores base editables: cambiando solo estos cambia todo el sitio. */
-  --brand-primary: #172D4D;   /* Deep Navy */
-  --brand-secondary: #F4F1EA; /* Soft Ivory */
-  --brand-accent: #B58A45;    /* Antique Gold */
+  --brand-primary: #4a2c1d; /* Coffee Brown */
+  --brand-secondary: #efe2cf; /* Latte Cream */
+  --brand-accent: #e0a526; /* Mustard */
 
   /* Superficies */
   --color-bg: var(--brand-secondary);
   --color-surface: color-mix(in oklab, var(--brand-secondary) 96%, white);
-  --color-surface-alt: color-mix(in oklab, var(--brand-secondary) 90%, var(--brand-primary));
-  --color-surface-tint: color-mix(in oklab, var(--brand-secondary) 82%, var(--brand-primary));
-  --color-border: color-mix(in oklab, var(--brand-primary) 20%, var(--brand-secondary));
+  --color-surface-alt: color-mix(
+    in oklab,
+    var(--brand-secondary) 90%,
+    var(--brand-primary)
+  );
+  --color-surface-tint: color-mix(
+    in oklab,
+    var(--brand-secondary) 82%,
+    var(--brand-primary)
+  );
+  --color-border: color-mix(
+    in oklab,
+    var(--brand-primary) 20%,
+    var(--brand-secondary)
+  );
 
   /* Texto */
   --color-text: color-mix(in oklab, var(--brand-primary) 94%, black);
-  --color-text-muted: color-mix(in oklab, var(--brand-primary) 76%, var(--brand-secondary));
+  --color-text-muted: color-mix(
+    in oklab,
+    var(--brand-primary) 76%,
+    var(--brand-secondary)
+  );
 
   /* Primario */
   --color-primary: var(--brand-primary);
@@ -27,16 +43,24 @@
   --color-accent: var(--brand-accent);
   --color-accent-strong: color-mix(in oklab, var(--brand-accent) 62%, black);
   --color-accent-light: color-mix(in oklab, var(--brand-accent) 72%, white);
-  --color-accent-soft: color-mix(in oklab, var(--brand-accent) 12%, var(--brand-secondary));
+  --color-accent-soft: color-mix(
+    in oklab,
+    var(--brand-accent) 12%,
+    var(--brand-secondary)
+  );
 
   /* Sobre fondos oscuros */
   --color-on-dark: var(--brand-secondary);
-  --color-on-dark-muted: color-mix(in oklab, var(--brand-secondary) 78%, var(--brand-primary));
+  --color-on-dark-muted: color-mix(
+    in oklab,
+    var(--brand-secondary) 78%,
+    var(--brand-primary)
+  );
 
   /* Unico color fijo: no depende de la marca. */
-  --color-success: #2E7D5B;
+  --color-success: #2e7d5b;
 
   /* Tipografias (igual que en la version original) */
-  --serif: Georgia, 'Times New Roman', serif;
+  --serif: Georgia, "Times New Roman", serif;
   --sans: Arial, Helvetica, sans-serif;
 }
