@@ -1,0 +1,61 @@
+---
+import { ArrowRight, ArrowUpRight, Check } from "@lucide/astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import HeroMosaic from "@/components/HeroMosaic.astro";
+import BenefitsRow from "@/components/BenefitsRow.astro";
+import ServiceCard from "@/components/ServiceCard.astro";
+import ProcessPreview from "@/components/ProcessPreview.astro";
+import CaseCard from "@/components/CaseCard.astro";
+import CallToAction from "@/components/CallToAction.astro";
+import { benefits, homeCopy } from "@/data/site";
+import { services } from "@/data/services";
+import { cases } from "@/data/cases";
+---
+
+<BaseLayout>
+  <div>
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="hero-kicker">{homeCopy.eyebrow}</p>
+          <h1>{homeCopy.title}</h1>
+          <p class="hero-description">{homeCopy.description}</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="/contacto">{homeCopy.primaryAction}<ArrowUpRight size={17} aria-hidden="true" /></a>
+            <a class="button button-outline" href="/servicios">{homeCopy.secondaryAction}<ArrowRight size={16} aria-hidden="true" /></a>
+          </div>
+          <div class="hero-note"><span class="hero-note-check"><Check size={13} aria-hidden="true" /></span>{homeCopy.heroNote}</div>
+        </div>
+        <HeroMosaic />
+      </div>
+      <div class="hero-bottomline"><div class="container hero-bottomline-inner"><span>Guayaquil · Ecuador</span><span>Personas primero, tecnología después</span></div></div>
+    </section>
+
+    <BenefitsRow items={benefits} title={homeCopy.benefitsTitle} eyebrow={homeCopy.benefitsEyebrow} />
+
+    <section class="section-block services-home" aria-labelledby="services-heading">
+      <div class="container">
+        <div class="section-heading-row"><div><span class="eyebrow">{homeCopy.servicesEyebrow}</span><h2 id="services-heading">{homeCopy.servicesTitle}</h2><p>{homeCopy.servicesDescription}</p></div><a class="section-link" href="/servicios">{homeCopy.servicesLink} <ArrowUpRight size={16} aria-hidden="true" /></a></div>
+        <div class="services-grid">{services.slice(0, 4).map((service, index) => <ServiceCard service={service} index={index} />)}</div>
+      </div>
+    </section>
+
+    <section class="section-block process-home" aria-labelledby="process-heading">
+      <div class="container">
+        <div class="section-heading-row"><div><span class="eyebrow">{homeCopy.processEyebrow}</span><h2 id="process-heading">{homeCopy.processTitle}</h2><p>{homeCopy.processDescription}</p></div><a class="section-link" href="/proceso">{homeCopy.processLink} <ArrowUpRight size={16} aria-hidden="true" /></a></div>
+        <ProcessPreview />
+        <div class="process-caption"><span class="caption-line"></span>{homeCopy.processNote}</div>
+      </div>
+    </section>
+
+    <section class="section-block cases-home" aria-labelledby="cases-heading">
+      <div class="container">
+        <div class="section-heading-row"><div><span class="eyebrow">{homeCopy.casesEyebrow}</span><h2 id="cases-heading">{homeCopy.casesTitle}</h2><p>{homeCopy.casesDescription}</p></div><a class="section-link" href="/casos">{homeCopy.casesLink} <ArrowUpRight size={16} aria-hidden="true" /></a></div>
+        <div class="cases-grid">{cases.slice(0, 2).map((item, index) => <CaseCard item={item} index={index} />)}</div>
+        <p class="illustrative-note"><span></span>{homeCopy.casesNote}</p>
+      </div>
+    </section>
+
+    <CallToAction title={homeCopy.finalTitle} description={homeCopy.finalDescription} />
+  </div>
+</BaseLayout>

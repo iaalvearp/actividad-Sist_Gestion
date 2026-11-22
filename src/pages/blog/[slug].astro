@@ -1,0 +1,34 @@
+---
+import { ArrowLeft, ArrowUpRight, Clock3 } from "@lucide/astro";
+import { getCollection, render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ArticleBody from "@/components/ArticleBody.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("blog");
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { title, description, category, date, author, readTime } = entry.data;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="article-page">
+    <div class="container article-container">
+      <a class="back-link" href="/blog"><ArrowLeft size={16} aria-hidden="true" />Volver a Ideas</a>
+      <article>
+        <header class="article-header">
+          <span class="article-category">{category}</span>
+          <h1>{title}</h1>
+          <p class="article-dek">{description}</p>
+          <div class="article-meta"><span>{author}</span><span class="article-meta-dot"></span><time>{date}</time><span class="article-meta-dot"></span><span class="article-read-time"><Clock3 size={15} aria-hidden="true" />{readTime}</span></div>
+        </header>
+        <div class="article-cover" aria-hidden="true"><span class="article-cover-orbit"></span><span class="article-cover-mark">{category.split(" ")[0].slice(0, 2).toUpperCase()}</span><span class="article-cover-caption">Guayas IA · Notas prácticas</span></div>
+        <ArticleBody><Content /></ArticleBody>
+      </article>
+      <aside class="article-end-card"><div><span class="eyebrow">¿Te gustaría conversarlo?</span><h2>Una buena pregunta puede abrir el siguiente paso.</h2></div><a href="/contacto" aria-label="Conversar con Guayas IA Consultores"><ArrowUpRight size={20} aria-hidden="true" /></a></aside>
+    </div>
+  </div>
+</BaseLayout>

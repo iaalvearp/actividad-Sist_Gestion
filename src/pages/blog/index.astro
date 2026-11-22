@@ -1,0 +1,39 @@
+---
+import { ArrowDownRight } from "@lucide/astro";
+import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ArticleCard from "@/components/ArticleCard.astro";
+import PageIntro from "@/components/PageIntro.astro";
+
+const months = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+const toTime = (date) => {
+  const [day, month, year] = date.split(" ");
+  return Number(year) * 10000 + (months.indexOf(month) + 1) * 100 + Number(day);
+};
+const entries = await getCollection("blog");
+const articles = entries
+  .sort((a, b) => toTime(b.data.date) - toTime(a.data.date))
+  .map((entry) => ({
+    ...entry.data,
+    slug: entry.id,
+    excerpt: entry.data.description,
+  }));
+---
+
+<BaseLayout
+  title="Ideas prácticas sobre inteligencia artificial"
+  description="Artículos breves para entender cómo empezar con IA en una pyme, elegir procesos, cuidar los datos y aprender de cada implementación."
+>
+  <div>
+    <PageIntro eyebrow="Ideas para avanzar" title="Conversaciones claras sobre IA y negocios." description="Lecturas breves para tomar mejores decisiones, conversar con tu equipo y llevar las ideas a la práctica con responsabilidad." />
+    <section class="section-block blog-listing-section">
+      <div class="container">
+        <div class="blog-featured">
+          <div><span class="eyebrow">Una nota para empezar</span><h2>{articles[0].title}</h2><p>{articles[0].description}</p></div>
+          <a class="featured-link" href={`/blog/${articles[0].slug}`} aria-label={`Leer: ${articles[0].title}`}><ArrowDownRight size={22} aria-hidden="true" /></a>
+        </div>
+        <div class="article-grid">{articles.map((article) => <ArticleCard article={article} />)}</div>
+      </div>
+    </section>
+  </div>
+</BaseLayout>
