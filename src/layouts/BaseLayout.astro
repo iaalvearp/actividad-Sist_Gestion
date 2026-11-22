@@ -1,0 +1,47 @@
+---
+import "../styles/tokens.css";
+import "../styles/global.css";
+import tokensSource from "../styles/tokens.css?raw";
+import AmbientGrid from "@/components/AmbientGrid.astro";
+import SiteHeader from "@/components/SiteHeader.astro";
+import SiteFooter from "@/components/SiteFooter.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const siteTitle = "Guayas IA Consultores | Inteligencia artificial para pymes";
+const pageTitle = title ? `${title} | Guayas IA Consultores` : siteTitle;
+const pageDescription =
+  description ??
+  "Consultoría práctica en inteligencia artificial para pequeñas y medianas empresas de Guayaquil. Diagnóstico, pilotos y acompañamiento responsable.";
+const themeColor = tokensSource.match(/--brand-secondary:\s*(#[0-9a-fA-F]{6})\s*;/)?.[1] ?? "";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content={themeColor} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="icon" type="image/png" href="/icon-light-32x32.png" media="(prefers-color-scheme: light)" />
+    <link rel="icon" type="image/png" href="/icon-dark-32x32.png" media="(prefers-color-scheme: dark)" />
+    <link rel="apple-touch-icon" href="/apple-icon.png" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
+    <div class="site-layer">
+      <AmbientGrid />
+      <SiteHeader />
+      <main id="main-content">
+        <slot />
+      </main>
+      <SiteFooter />
+    </div>
+  </body>
+</html>

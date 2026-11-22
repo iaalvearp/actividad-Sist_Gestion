@@ -1,0 +1,15 @@
+---
+import { processSteps } from "@/data/process";
+---
+
+<div class="process-preview-grid">
+  {
+    processSteps.map((step) => (
+      <article class="process-preview-item">
+        <span class="process-number">{step.number}</span>
+        <h3>{step.title}</h3>
+        <p>{step.description}</p>
+      </article>
+    ))
+  }
+</div>

@@ -1,0 +1,29 @@
+---
+import { ArrowUpRight } from "@lucide/astro";
+
+interface ArticleLike {
+  slug: string;
+  category: string;
+  date: string;
+  author: string;
+  title: string;
+  excerpt: string;
+  readTime: string;
+}
+
+interface Props {
+  article: ArticleLike;
+}
+
+const { article } = Astro.props;
+---
+
+<article class="article-card">
+  <div class="article-card-top"><span class="article-category">{article.category}</span><span>{article.readTime}</span></div>
+  <h2><a href={`/blog/${article.slug}`}>{article.title}</a></h2>
+  <p>{article.excerpt}</p>
+  <div class="article-card-bottom">
+    <span>{article.date} · {article.author}</span>
+    <a href={`/blog/${article.slug}`} aria-label={`Leer artículo: ${article.title}`}><ArrowUpRight size={19} aria-hidden="true" /></a>
+  </div>
+</article>

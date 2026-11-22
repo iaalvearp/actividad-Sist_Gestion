@@ -1,0 +1,32 @@
+---
+import { Compass, UsersRound, ShieldCheck } from "@lucide/astro";
+
+interface Props {
+  items: { icon: string; title: string; description: string }[];
+  title: string;
+  eyebrow: string;
+}
+
+const { items, title, eyebrow } = Astro.props;
+const benefitIcons = { compass: Compass, users: UsersRound, shield: ShieldCheck };
+---
+
+<section class="benefits-section" aria-labelledby="benefits-title">
+  <div class="container">
+    <div class="benefits-heading"><span class="eyebrow">{eyebrow}</span><h2 id="benefits-title">{title}</h2></div>
+    <div class="benefits-grid">
+      {
+        items.map((item, index) => {
+          const Icon = benefitIcons[item.icon];
+          return (
+            <article class="benefit-item" key={item.title}>
+              <span class="benefit-icon">{Icon && <Icon size={20} stroke-width={1.8} aria-hidden="true" />}</span>
+              <div><h3>{item.title}</h3><p>{item.description}</p></div>
+              <span class="benefit-index">0{index + 1}</span>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

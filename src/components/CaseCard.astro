@@ -1,0 +1,24 @@
+---
+import type { CaseStudy } from "@/data/cases";
+
+interface Props {
+  item: CaseStudy;
+  index?: number;
+}
+
+const { item, index } = Astro.props;
+---
+
+<article class="case-card">
+  <div class={`case-visual case-visual-${item.id}`} aria-hidden="true">
+    <span class="case-orbit case-orbit-one"></span><span class="case-orbit case-orbit-two"></span>
+    <span class="case-monogram">{item.initials}</span>
+    <span class="case-visual-label">{item.sector}</span>
+  </div>
+  <div class="case-card-body">
+    <span class="case-sector">Caso ilustrativo · {item.sector}</span>
+    <h3>{item.title}</h3>
+    <p>{item.result}</p>
+    {index !== undefined && <span class="case-number">CASO 0{index + 1}</span>}
+  </div>
+</article>

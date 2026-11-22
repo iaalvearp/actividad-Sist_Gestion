@@ -1,0 +1,53 @@
+---
+import { ArrowRight, CheckCircle2 } from "@lucide/astro";
+---
+
+<form class="contact-form">
+  <div class="form-field">
+    <label for="name">Nombre</label>
+    <input id="name" name="name" autocomplete="name" placeholder="Tu nombre" required />
+  </div>
+  <div class="form-field">
+    <label for="company">Empresa</label>
+    <input id="company" name="company" autocomplete="organization" placeholder="Nombre de tu empresa" required />
+  </div>
+  <div class="form-field form-field-full">
+    <label for="email">Correo electrónico</label>
+    <input id="email" name="email" type="email" autocomplete="email" placeholder="nombre@empresa.com" required />
+  </div>
+  <div class="form-field form-field-full">
+    <label for="message">¿Qué te gustaría mejorar?</label>
+    <textarea id="message" name="message" rows={5} placeholder="Cuéntanos un poco sobre tu reto o idea…" required minlength={10}></textarea>
+    <span class="field-hint">Comparte solo información general; evita incluir datos personales o confidenciales.</span>
+  </div>
+  <div class="form-actions form-field-full">
+    <button class="button button-primary" type="submit">Enviar mensaje <ArrowRight size={17} aria-hidden="true" /></button>
+    <p>Este formulario es demostrativo. El envío solo muestra una confirmación en esta página.</p>
+  </div>
+</form>
+
+<div class="form-success" role="status" aria-live="polite" style="display: none">
+  <CheckCircle2 size={30} aria-hidden="true" />
+  <h2>Gracias por escribirnos.</h2>
+  <p>Tu mensaje se confirmó en esta demostración. No se envió ni guardó en un servidor.</p>
+  <button class="text-link form-reset" type="button">Enviar otro mensaje <ArrowRight size={15} aria-hidden="true" /></button>
+</div>
+
+<script>
+  const form = document.querySelector("form.contact-form");
+  const success = document.querySelector(".form-success");
+  const reset = document.querySelector(".form-reset");
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+    form.style.display = "none";
+    success.style.display = "flex";
+  });
+
+  reset.addEventListener("click", () => {
+    form.reset();
+    success.style.display = "none";
+    form.style.display = "grid";
+  });
+</script>

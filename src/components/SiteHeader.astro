@@ -1,0 +1,56 @@
+---
+import { ArrowUpRight, BrainCircuit, Menu, X } from "@lucide/astro";
+import { brand, navigation } from "@/data/site";
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand-lockup" href="/" aria-label={`${brand.name}, ir al inicio`}>
+      <span class="brand-mark" aria-hidden="true"><BrainCircuit size={21} stroke-width={1.8} /></span>
+      <span class="brand-name">{brand.name}<small>Consultoría práctica en IA</small></span>
+    </a>
+    <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="primary-navigation">
+      <Menu size={22} class="menu-icon-open" />
+      <X size={22} class="menu-icon-close" hidden />
+    </button>
+    <nav id="primary-navigation" class="primary-nav" aria-label="Navegación principal">
+      {
+        navigation.map((item) => {
+          const isActive = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
+          return (
+            <a
+              href={item.href}
+              class={isActive ? "nav-link is-active" : "nav-link"}
+              aria-current={isActive ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          );
+        })
+      }
+      <a class="header-cta" href="/contacto">Hablemos <ArrowUpRight size={16} aria-hidden="true" /></a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector(".menu-toggle");
+  const nav = document.querySelector(".primary-nav");
+  const iconOpen = document.querySelector(".menu-icon-open");
+  const iconClose = document.querySelector(".menu-icon-close");
+
+  function setMenu(open) {
+    nav.classList.toggle("is-open", open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+    iconOpen.toggleAttribute("hidden", open);
+    iconClose.toggleAttribute("hidden", !open);
+  }
+
+  toggle.addEventListener("click", () => setMenu(!nav.classList.contains("is-open")));
+  document.querySelectorAll(".site-header a").forEach((link) => {
+    link.addEventListener("click", () => setMenu(false));
+  });
+</script>

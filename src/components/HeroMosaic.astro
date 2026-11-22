@@ -1,0 +1,42 @@
+---
+import { ArrowDown, Check, Circle, ShieldCheck } from "@lucide/astro";
+import { homeMosaic } from "@/data/site";
+---
+
+<aside class="hero-mosaic" aria-label="Ejemplos de procesos que pueden abordarse con inteligencia artificial">
+  <article class="mosaic-card mosaic-workflow">
+    <div class="mosaic-card-top">
+      <span class="mosaic-label">{homeMosaic.workflowLabel}</span>
+      <span class="mosaic-status"><span />{homeMosaic.workflowStatus}</span>
+    </div>
+    <h2>{homeMosaic.workflowTitle}</h2>
+    <p class="mosaic-description">{homeMosaic.workflowDescription}</p>
+    <ol class="mosaic-flow-list">
+      {
+        homeMosaic.flow.map((step, index) => (
+          <li>
+            <span class="mosaic-step-number">0{index + 1}</span>
+            <span class="mosaic-step-copy"><strong>{step.title}</strong><small>{step.description}</small></span>
+            {index < homeMosaic.flow.length - 1 && <ArrowDown class="mosaic-step-arrow" size={14} aria-hidden="true" />}
+          </li>
+        ))
+      }
+    </ol>
+    <div class="mosaic-workflow-footer"><span class="mosaic-check"><Check size={13} aria-hidden="true" /></span>{homeMosaic.workflowFooter}</div>
+  </article>
+
+  <article class="mosaic-card mosaic-control">
+    <div class="mosaic-control-top"><span class="mosaic-control-icon"><ShieldCheck size={20} stroke-width={1.7} aria-hidden="true" /></span><span class="mosaic-label">{homeMosaic.controlLabel}</span></div>
+    <h3>{homeMosaic.controlTitle}</h3>
+    <p>{homeMosaic.controlDescription}</p>
+    <span class="mosaic-control-orbit" aria-hidden="true" />
+  </article>
+
+  <article class="mosaic-card mosaic-principle">
+    <div class="mosaic-principle-top"><span class="mosaic-label">{homeMosaic.principleLabel}</span><span class="mosaic-principle-symbol" aria-hidden="true"><Circle size={19} /><Circle size={19} /><Circle size={19} /></span></div>
+    <h3>{homeMosaic.principleTitle}</h3>
+    <div class="mosaic-principle-flow">
+      {homeMosaic.principleSteps.map((step, index) => <span><i>0{index + 1}</i>{step}</span>)}
+    </div>
+  </article>
+</aside>
